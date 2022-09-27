@@ -6,10 +6,15 @@ import Header from './components/Header'
 import About from './components/About'
 import TaskDetails from './components/TaskDetails'
 import Tasks from './components/Tasks'
+import Toggle from './components/Toggle'
+import { ThemeContext } from './Context'
+import { useContext } from 'react'
 
 const App = () => {
   const [showAddtask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
+  const theme = useContext(ThemeContext)
+  const darkMode = theme.state.darkMode
   
   useEffect(() => {
     const getTasks = async () => {
@@ -91,7 +96,8 @@ const toggleReminder = async (id) => {
 
   return (
     <Router>  
-      <div className="container">
+      <div className="container" style={{backgroundColor: darkMode ? '#222' : 'white', color: darkMode ? 'white': '#222' }}>
+        <Toggle />
         <Header onAdd={() => setShowAddTask(!showAddtask)} 
         showAdd={showAddtask} 
         />
